@@ -19,13 +19,14 @@ func Run(input []string, mode int) {
 
 // Part1 solves the first part of the exercise
 func Part1(input []string) string {
-	distance := sum(CalculateDistances(input))
+	distance := Sum(CalculateDistances(input))
 	return strconv.Itoa(distance)
 }
 
 // Part2 solves the second part of the exercise
 func Part2(input []string) string {
-	return ""
+	score := Sum(SimilarityScores(input))
+	return strconv.Itoa(score)
 }
 
 func CalculateDistances(input []string) (distances []int) {
@@ -50,7 +51,26 @@ func CalculateDistances(input []string) (distances []int) {
 	return distances
 }
 
-func sum(array []int) int {
+func SimilarityScores(input []string) (scores []int) {
+	left := []int{}
+	right := []int{}
+
+	for _, line := range input {
+		splitStrings := strings.Split(line, " ")
+		ln, _ := strconv.Atoi(splitStrings[0])
+		left = append(left, ln)
+		rn, _ := strconv.Atoi(splitStrings[len(splitStrings)-1])
+		right = append(right, rn)
+	}
+
+	for _, number := range left {
+		scores = append(scores, number*Count(right, number))
+	}
+
+	return scores
+}
+
+func Sum(array []int) int {
 	result := 0
 	for _, v := range array {
 		result += v
@@ -64,4 +84,15 @@ func Abs(x int) int {
 	} else {
 		return x * -1
 	}
+}
+
+func Count(numbers []int, target int) int {
+	count := 0
+
+	for _, value := range numbers {
+		if value == target {
+			count++
+		}
+	}
+	return count
 }
