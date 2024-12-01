@@ -1,6 +1,6 @@
-# Advent of Code 2024 in Go
+# Advent of Code 2024 Solutions
 
-My solutions for AoC in Golang
+My solutions for AoC for the year 2024 in Golang
 
 ## Credits
 [Advent of Code](https://adventofcode.com/)
