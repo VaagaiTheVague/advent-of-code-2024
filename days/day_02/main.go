@@ -23,7 +23,7 @@ func Part1(input []string) string {
 
 // Part2 solves the second part of the exercise
 func Part2(input []string) string {
-	return ""
+	return strconv.Itoa(SafeReportsDamped(input))
 }
 
 func SafeReports(input []string) (count int) {
@@ -46,6 +46,38 @@ func IsSafe(level []int) bool {
 		}
 	}
 	return true
+}
+
+func SafeReportsDamped(input []string) (count int) {
+	reports := ParseInput(input)
+
+	for _, level := range reports {
+		if IsSafeDamped(level) {
+			count++
+		}
+	}
+
+	return count
+}
+
+func IsSafeDamped(input []int) bool {
+	if IsSafe(input) {
+		return true
+	} else {
+		for i := range input {
+			removedInput := Remove(input, i)
+			if IsSafe(removedInput) {
+				return true
+			}
+		}
+	}
+	return false
+}
+
+func Remove(s []int, index int) []int {
+	ret := make([]int, 0)
+	ret = append(ret, s[:index]...)
+	return append(ret, s[index+1:]...)
 }
 
 func IsGraduallySloped(level []int) bool {
@@ -95,5 +127,6 @@ func ParseInput(input []string) (reports [][]int) {
 		}
 		reports = append(reports, numbers)
 	}
+	// fmt.Println(reports)
 	return reports
 }
