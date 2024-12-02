@@ -5,7 +5,7 @@ My solutions for AoC for the year 2024 in Golang
 ## Days Done
 
 - Day 1: ★ ★
-- Day 2: ★ ☆
+- Day 2: ★ ★
 
 ## Credits
 - [Advent of Code](https://adventofcode.com/)
