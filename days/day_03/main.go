@@ -33,5 +33,24 @@ func Part1(input []string) string {
 
 // Part2 solves the second part of the exercise
 func Part2(input []string) string {
-	return ""
+	r, _ := regexp.Compile(`(mul\((\d{1,3}),(\d{1,3})\)|do\(\)|don't\(\))`)
+	matches := r.FindAllStringSubmatch(strings.Join(input, ""), -1)
+
+	enabled := true
+	sum := 0
+	for _, match := range matches {
+		switch match[0] {
+		case "do()":
+			enabled = true
+		case "don't()":
+			enabled = false
+		default:
+			if enabled {
+				left, _ := strconv.Atoi(match[2])
+				right, _ := strconv.Atoi(match[3])
+				sum += left * right
+			}
+		}
+	}
+	return strconv.Itoa(sum)
 }

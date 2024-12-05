@@ -6,7 +6,7 @@ My solutions for AoC for the year 2024 in Golang
 
 - Day 1: ★ ★
 - Day 2: ★ ★
-- Day 3: ★ ☆
+- Day 3: ★ ★
 
 ## Credits
 - [Advent of Code](https://adventofcode.com/)
