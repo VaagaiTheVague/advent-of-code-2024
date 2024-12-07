@@ -71,5 +71,25 @@ func CountXMAS(input []string) int {
 
 // Part2 solves the second part of the exercise
 func Part2(input []string) string {
-	return ""
+	count := 0
+
+	for i := 1; i < len(input[0])-1; i++ {
+		for j := 1; j < len(input[0])-1; j++ {
+			if input[i][j] == 'A' {
+				if input[i-1][j-1] == 'M' && input[i-1][j+1] == 'M' && input[i+1][j-1] == 'S' && input[i+1][j+1] == 'S' {
+					count++
+				}
+				if input[i-1][j-1] == 'M' && input[i-1][j+1] == 'S' && input[i+1][j-1] == 'M' && input[i+1][j+1] == 'S' {
+					count++
+				}
+				if input[i-1][j-1] == 'S' && input[i-1][j+1] == 'M' && input[i+1][j-1] == 'S' && input[i+1][j+1] == 'M' {
+					count++
+				}
+				if input[i-1][j-1] == 'S' && input[i-1][j+1] == 'S' && input[i+1][j-1] == 'M' && input[i+1][j+1] == 'M' {
+					count++
+				}
+			}
+		}
+	}
+	return strconv.Itoa(count)
 }
