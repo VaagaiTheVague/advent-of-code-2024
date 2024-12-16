@@ -43,7 +43,77 @@ func Part1(input []string) string {
 
 // Part2 solves the second part of the exercise
 func Part2(input []string) string {
-	return ""
+	orders, page := Parse(input)
+
+	order := map[int][]int{}
+	for _, o := range orders {
+		order[o[0]] = append(order[o[0]], o[1])
+	}
+
+	sum := processPages(page, order)
+
+	return strconv.Itoa(sum)
+}
+
+func processPages(pages [][]int, dict map[int][]int) int {
+	var total int
+
+	// Filter and process pages
+	for _, page := range pages {
+		if !IsValidPage(page, dict) {
+			// Perform insertion sort equivalent
+			sortedPage := insertionSort(page, dict)
+
+			// Get middle element
+			if len(sortedPage) > 0 {
+				middleIndex := len(sortedPage) / 2
+				total += sortedPage[middleIndex]
+			}
+		}
+	}
+
+	return total
+}
+
+func insertionSort(page []int, dict map[int][]int) []int {
+	sorted := []int{}
+
+	for _, e := range page {
+		// Find insertion point
+		insertIndex := -1
+		for i, x := range sorted {
+			if containsInDict(dict, e, x) {
+				insertIndex = i
+				break
+			}
+		}
+
+		// Insert the element
+		if insertIndex == -1 {
+			sorted = append(sorted, e)
+		} else {
+			sorted = append(sorted[:insertIndex], append([]int{e}, sorted[insertIndex:]...)...)
+		}
+	}
+
+	return sorted
+}
+
+func containsInDict(dict map[int][]int, e, x int) bool {
+	if dictEntry, exists := dict[e]; exists {
+		for _, val := range dictEntry {
+			if val == x {
+				return true
+			}
+		}
+	}
+	return false
+}
+
+func validPage(page []int, dict map[int][]int) bool {
+	// Implement your validation logic here
+	// This is a placeholder implementation
+	return len(page) > 0
 }
 
 func Parse(input []string) ([][]int, [][]int) {
